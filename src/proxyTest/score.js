@@ -8,10 +8,8 @@ const proxy_ledger = initConfig.proxy_ledger;
 const registed_user_address = initConfig.registed_user_address;
 const gasPrice = initConfig.gas_price;
 
-
 //1. ABI 는 Logic 컨트랙트 / 주소는 Proxy 컨트랙트
-let ContractInstance = new web3.eth.Contract(LogicHelloWorldJSON.abi, proxy_ledger); 
-
+let ContractInstance = new web3.eth.Contract(LogicHelloWorldJSON.abi,proxy_ledger);
 
 ContractInstance.methods.score().call(
     {
