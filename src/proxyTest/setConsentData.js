@@ -1,5 +1,5 @@
 const initConfig = require('../initConfig') ;
-const LogicHelloWorldJSON = require('../../build/contracts/Logic.json');
+const LogicHelloWorldJSON = require('../../build/contracts/ConsentStateContract.json');
 const web3 = initConfig.web3;
 const user_address = initConfig.user_address;
 const user_pk = initConfig.user_pk;
@@ -12,13 +12,16 @@ const gasPrice = initConfig.gas_price;
 let ContractInstance = new web3.eth.Contract(LogicHelloWorldJSON.abi,proxy_ledger); 
 
 
-ContractInstance.methods.score().call(
-    {
-        from: registed_user_address,
-        gas: '4520000',
-        gasPrice: gasPrice
-    }
-)
-.then((result) => {
-    console.log(result);
-});
+let testTxId = '2';
+let testHash = 'b'; 
+// console.log(ContractInstance);
+ContractInstance.methods.setConsentState(testTxId, testHash ).send({
+    from: registed_user_address,
+    gas: '452000000',
+    gasPrice: gasPrice
+})
+.on('receipt', (receipt) => {
+  console.log(receipt);
+}).on('error', (error => {
+    console.log(error);
+}));

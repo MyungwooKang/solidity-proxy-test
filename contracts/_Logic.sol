@@ -5,6 +5,7 @@ contract Logic {
     string str;
 
     function hit() public {
+   
         scoreMap[msg.sender] = scoreMap[msg.sender] + 10;
         str = "hit";
     }

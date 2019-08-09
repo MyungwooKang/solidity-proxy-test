@@ -14,7 +14,7 @@ let ContractInstance = new web3.eth.Contract(LogicHelloWorldJSON.abi,proxy_ledge
 // console.log(ContractInstance);
 ContractInstance.methods.hit().send({
     from: registed_user_address,
-    gas: '4520000',
+    gas: '452000000',
     gasPrice: gasPrice
 })
 .on('receipt', (receipt) => {

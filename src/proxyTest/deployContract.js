@@ -3,28 +3,25 @@ const initConfig = require('../initConfig');
 const LogicHelloWorldJSON = require('../../build/contracts/Logic.json');
 const web3 = initConfig.web3;
 const user_address = initConfig.user_address;
-var user_pk = initConfig.user_pk;
+const user_pk = initConfig.user_pk;
 const logic_ledger = initConfig.logic_leger;
 const proxy_ledger = initConfig.proxy_ledger;
 const registed_user_address = initConfig.registed_user_address;
 const gasPrice = initConfig.gas_price;
 
-//1. ABI 는 Logic 컨트랙트 / 주소는 Proxy 컨트랙트
-let ContractInstance = new web3.eth.Contract(LogicHelloWorldJSON.abi,proxy_ledger);
 
-let data = ContractInstance.methods.hit().encodeABI();
-
+const LogicHelloWorldJSON = require('../../build/contracts/Logic.json');
+var bytecode = LogicHelloWorldJSON.bytecode;
 web3.eth.getTransactionCount(user_address).then(function (nonce) {
     console.log("set rtx");
     let rtx = {
       nonce: nonce,
-      gasPrice: gasPrice,
-      gasLimit: '0x10000',
-      to: proxy_ledger,
-      value: "0x0",
-      data: data
+      gasPrice: 20000000000,
+      gasLimit: 6721975,
+      value: 0x0,
+      data: bytecode
     };
-    console.log(rtx);
+    // console.log(rtx);
 
     try {
 
@@ -49,6 +46,7 @@ web3.eth.getTransactionCount(user_address).then(function (nonce) {
 
     } catch (err) {
       console.log("signTransaction test log - error");
+      console.log(err);
       // console.log(err);
       // // res.status(500).send(err);
       // throw err;
